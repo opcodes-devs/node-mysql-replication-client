@@ -84,32 +84,30 @@ ZongJi.prototype._isChecksumEnabled = function(next) {
 
   let checksumEnabled = true;
 
-  query(this.connection, `SET time_zone='${this.timezone}'`).then(() => {
-    query(this.ctrlConnection, SelectChecksumParamSql)
-      .then(rows => {
-        if (rows[0].checksum === 'NONE') {
-          checksumEnabled = false;
-          return query(this.connection, 'SELECT 1');
-        }
+  query(this.ctrlConnection, SelectChecksumParamSql)
+    .then(rows => {
+      if (rows[0].checksum === 'NONE') {
+        checksumEnabled = false;
+        return query(this.connection, 'SELECT 1');
+      }
 
-        if (checksumEnabled) {
-          return query(this.connection, SetChecksumSql);
-        }
-      })
-      .catch(err => {
-        if (err.toString().match(/ER_UNKNOWN_SYSTEM_VARIABLE/)) {
-          checksumEnabled = false;
-          // a simple query to open this.connection
-          return query(this.connection, 'SELECT 1');
-        }
-        else {
-          next(err);
-        }
-      })
-      .then(() => {
-        next(null, checksumEnabled);
-      });
-  });
+      if (checksumEnabled) {
+        return query(this.connection, SetChecksumSql);
+      }
+    })
+    .catch(err => {
+      if (err.toString().match(/ER_UNKNOWN_SYSTEM_VARIABLE/)) {
+        checksumEnabled = false;
+        // a simple query to open this.connection
+        return query(this.connection, 'SELECT 1');
+      }
+      else {
+        next(err);
+      }
+    })
+    .then(() => {
+      next(null, checksumEnabled);
+    });
 };
 
 ZongJi.prototype._findBinlogEnd = function(next) {
