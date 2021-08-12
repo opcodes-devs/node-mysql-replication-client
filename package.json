@@ -37,6 +37,7 @@
   "dependencies": {
     "big-integer": "1.6.48",
     "iconv-lite": "0.6.2",
+    "moment-timezone": "0.5.33",
     "@vlasky/mysql": "roopen219/mysql#2b25650aa1c49d83b72e77f42bcceee9c0a67291"
   }
 }

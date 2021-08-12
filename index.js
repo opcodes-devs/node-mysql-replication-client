@@ -17,6 +17,7 @@ const TableInfoQueryTemplate = `SELECT
 function ZongJi(dsn) {
   EventEmitter.call(this);
 
+  this.timezone = dsn.timezone || '+00:00';
   this._options({});
   this._filters({});
   this.ctrlCallbacks = [];
@@ -83,7 +84,7 @@ ZongJi.prototype._isChecksumEnabled = function(next) {
 
   let checksumEnabled = true;
 
-  query(this.connection, 'SET time_zone=\'+00:00\'').then(() => {
+  query(this.connection, `SET time_zone='${this.timezone}'`).then(() => {
     query(this.ctrlConnection, SelectChecksumParamSql)
       .then(rows => {
         if (rows[0].checksum === 'NONE') {
