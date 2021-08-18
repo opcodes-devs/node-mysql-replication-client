@@ -256,10 +256,12 @@ ZongJi.prototype.start = function(options = {}) {
       case 'TableMap': {
         const tableMap = this.tableMap[event.tableId];
         if (!tableMap || tableMap.tableName !== event.tableName || tableMap.columns.length !== event.columnCount) {
+          this.fetchingTableInfo = true;
           this.connection.pause();
           this._fetchTableInfo(event, () => {
             // merge the column info with metadata
             event.updateColumnInfo();
+            this.fetchingTableInfo = false;
             this.emit('binlog', event);
             this.connection.resume();
           });
