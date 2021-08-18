@@ -17,7 +17,7 @@ const TableInfoQueryTemplate = `SELECT
 function ZongJi(dsn) {
   EventEmitter.call(this);
 
-  this.timezone = dsn.timezone || '+00:00';
+  this.timezone = dsn.timezone || 'Etc/UTC';
   this._options({});
   this._filters({});
   this.ctrlCallbacks = [];
