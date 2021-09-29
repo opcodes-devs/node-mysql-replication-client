@@ -279,9 +279,9 @@
   resolved "https://registry.yarnpkg.com/@types/yoga-layout/-/yoga-layout-1.9.2.tgz#efaf9e991a7390dc081a0b679185979a83a9639a"
   integrity sha512-S9q47ByT2pPvD65IvrWp7qppVMpk9WGMbVq9wbWZOHg6tnXSD4vyhao6nOSBwwfDdV2p3Kx9evA9vI+XWTfDvw==
 
-"@vlasky/mysql@roopen219/mysql#2b25650aa1c49d83b72e77f42bcceee9c0a67291":
+"@vlasky/mysql@flydata/mysql#2b25650aa1c49d83b72e77f42bcceee9c0a67291":
   version "2.18.5"
-  resolved "https://codeload.github.com/roopen219/mysql/tar.gz/2b25650aa1c49d83b72e77f42bcceee9c0a67291"
+  resolved "https://codeload.github.com/flydata/mysql/tar.gz/2b25650aa1c49d83b72e77f42bcceee9c0a67291"
   dependencies:
     bignumber.js "9.0.1"
     readable-stream "2.3.7"
