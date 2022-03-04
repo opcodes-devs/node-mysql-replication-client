@@ -11,7 +11,7 @@ exports.init = function(done) {
   const connObj = {...settings.connection};
   // database doesn't exist at this time
   delete connObj.database;
-  const conn = mysql.createConnection(connObj);
+  const conn = mysql.createPool(connObj);
 
   querySequence(
     conn,
@@ -31,7 +31,7 @@ exports.init = function(done) {
 };
 
 exports.execute = function(queries, done) {
-  const conn = mysql.createConnection(settings.connection);
+  const conn = mysql.createPool(settings.connection);
   querySequence(
     conn,
     queries,
@@ -57,7 +57,7 @@ exports.requireVersion = function(expected, done) {
   const connObj = {...settings.connection};
   // database doesn't exist at this time
   delete connObj.database;
-  const conn = mysql.createConnection(connObj);
+  const conn = mysql.createPool(connObj);
   querySequence(conn, ['SELECT VERSION() AS version'], (err, results) => {
     conn.destroy();
 

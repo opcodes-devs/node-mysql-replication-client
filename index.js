@@ -33,7 +33,7 @@ util.inherits(ZongJi, EventEmitter);
 // dsn - can be one instance of Connection or Pool / object / url string
 ZongJi.prototype._establishConnection = function(dsn) {
   const createConnection = (options) => {
-    let connection = mysql.createConnection(options);
+    let connection = mysql.createPool(options);
     connection.on('error', this.emit.bind(this, 'error'));
     connection.on('unhandledError', this.emit.bind(this, 'error'));
     // don't need to call connection.connect() here
