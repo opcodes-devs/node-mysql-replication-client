@@ -106,6 +106,16 @@ ZongJi.prototype._isChecksumEnabled = function(next) {
       }
     })
     .then(() => {
+      this.ctrlConnectionIntervalTimer = setInterval(() => {
+        this.ctrlConnection.ping((err) => {
+          if (err) {
+            this.emit('error', err);
+          }
+        });
+      }, 30000);
+      return query(this.connection, `set @master_heartbeat_period=${this.options.heartbeatInterval*1000000000}`);
+    })
+    .then(() => {
       next(null, checksumEnabled);
     });
 };
@@ -160,12 +170,14 @@ ZongJi.prototype._options = function({
   filename,
   position,
   startAtEnd,
+  heartbeatInterval = 5
 }) {
   this.options = {
     serverId,
     filename,
     position,
     startAtEnd,
+    heartbeatInterval
   };
 };
 
@@ -303,6 +315,7 @@ ZongJi.prototype.start = function(options = {}) {
 
 ZongJi.prototype.stop = function() {
   // Binary log connection does not end with destroy()
+  clearInterval(this.ctrlConnectionIntervalTimer);
   this.connection.destroy();
   this.ctrlConnection.query(
     'KILL ' + this.connection.threadId,
