@@ -39,5 +39,9 @@
     "iconv-lite": "0.6.2",
     "moment-timezone": "0.5.33",
     "@vlasky/mysql": "flydata/mysql#2b25650aa1c49d83b72e77f42bcceee9c0a67291"
+  },
+  "volta": {
+    "node": "16.14.0",
+    "yarn": "1.22.17"
   }
 }
