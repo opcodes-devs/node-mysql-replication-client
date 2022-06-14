@@ -18,6 +18,7 @@ function ZongJi(dsn) {
   EventEmitter.call(this);
 
   this.timezone = dsn.timezone || 'Etc/UTC';
+  this.roundTime = dns.roundTime || false;
   this._options({});
   this._filters({});
   this.ctrlCallbacks = [];
